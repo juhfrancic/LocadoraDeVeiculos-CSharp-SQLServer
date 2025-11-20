@@ -46,49 +46,49 @@ namespace Locadora.Controller
             }
         }
 
-        //public List<Cliente> ListarClientes()
-        //{
-        //    var connection = new SqlConnection(ConnectionDB.GetConnectionString());
-        //    try
-        //    {
-        //        connection.Open();
+        public List<Cliente> ListarClientes()
+        {
+            var connection = new SqlConnection(ConnectionDB.GetConnectionString());
+            try
+            {
+                connection.Open();
 
-        //        SqlCommand command = new SqlCommand(Cliente.SELECTALLCLIENTES, connection);
+                SqlCommand command = new SqlCommand(Cliente.SELECTALLCLIENTES, connection);
 
-        //        SqlDataReader reader = command.ExecuteReader();
+                SqlDataReader reader = command.ExecuteReader();
 
-        //        List<Cliente> clientes = new List<Cliente>();
-        //        while (reader.Read())
-        //        {
-        //            var cliente = new Cliente(reader["Nome"].ToString(),
-        //                                        reader["Email"].ToString(),
-        //                                        reader["Telefone"] != DBNull.Value ?
-        //                                        reader["Telefone"].ToString() : null);
-        //            cliente.setClienteId(Convert.ToInt32(reader["ClienteId"]));
+                List<Cliente> clientes = new List<Cliente>();
+                while (reader.Read())
+                {
+                    var cliente = new Cliente(reader["Nome"].ToString(),
+                                                reader["Email"].ToString(),
+                                                reader["Telefone"] != DBNull.Value ?
+                                                reader["Telefone"].ToString() : null);
+                    cliente.setClienteId(Convert.ToInt32(reader["ClienteId"]));
 
-        //            var documento = new Documento(reader["TipoDocumento"].ToString(),
-        //                                        reader["Numero"].ToString(),
-        //                                        DateOnly.FromDateTime(reader.GetDateTime(6)),
-        //                                        DateOnly.FromDateTime(reader.GetDateTime(7)));
-        //            cliente.setDocumento(documento);
+                    var documento = new Documento(reader["TipoDocumento"].ToString(),
+                                                reader["Numero"].ToString(),
+                                                DateOnly.FromDateTime(reader.GetDateTime(6)),
+                                                DateOnly.FromDateTime(reader.GetDateTime(7)));
+                    cliente.setDocumento(documento);
 
-        //            clientes.Add(cliente);
-        //        }
-        //        return clientes;
-        //    }
-        //    catch(SqlException ex)
-        //    {
-        //        throw new Exception("Erro ao listar clientes: " + ex.Message);
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        throw new Exception("Erro inesperado ao listar clientes: " + ex.Message);
-        //    }
-        //    finally
-        //    {
-        //        connection.Close();
-        //    }
-        //}
+                    clientes.Add(cliente);
+                }
+                return clientes;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception("Erro ao listar clientes: " + ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro inesperado ao listar clientes: " + ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
 
         public Cliente BuscarClientePorEmail(string email)
         {

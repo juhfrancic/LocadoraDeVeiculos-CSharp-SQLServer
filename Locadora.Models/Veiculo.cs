@@ -29,6 +29,15 @@ namespace Locadora.Models
             VeiculoId = veiculoId;
         }
 
-        public void set
+        public void setStatusVeiculo(string statusVeiculo)
+        {
+            StatusVeiculo = statusVeiculo;
+        }
+
+        public override string? ToString()
+        {
+            return $"Placa: {Placa}," +
+                   $"\nMarca: {Marca},\nModelo: {Modelo},\nAno: {Ano},\nStatusVeiculo: {StatusVeiculo}\n";
+        }
     }
 }
