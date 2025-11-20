@@ -12,6 +12,8 @@
                                                                 "WHERE ClienteID = @IdCliente";
 
         public readonly static string SELECTCLIENTEPOREMAIL = "SELECT * FROM dbo.tblClientes WHERE Email = @Email";
+        
+        public readonly static string DELETECLIENTE = "DELETE FROM dbo.tblClientes WHERE ClienteID = @IdCliente";
 
         public int ClienteId { get; private set; }
         public string Nome { get; private set; }

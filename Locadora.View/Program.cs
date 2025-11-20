@@ -18,7 +18,7 @@ var clienteController = new ClientController();
 //    }
 //}
 
-clienteController.ListarClientes();
+//clienteController.ListarClientes();
 
 //try
 //{
@@ -29,10 +29,29 @@ clienteController.ListarClientes();
 //        Console.WriteLine(clienteLista);
 //    }
 //}
-//catch(Exception ex)
+//catch (Exception ex)
 //{
 //    Console.WriteLine("Erro ao listar clientes: " + ex.Message);
 //}
 
-clienteController.AtualizarTelefoneCliente("9999-9999", "novoemail3@uol.com.br");
-Console.WriteLine(clienteController.BuscarClientePorEmail("novoemail3@uol.com.br"));
+//try
+//{
+//    clienteController.AtualizarTelefoneCliente("9999-9999", "novoemail3@uol.com.br");
+//    Console.WriteLine("Telefone atualizado com sucesso.");
+//    Console.WriteLine(clienteController.BuscarClientePorEmail("novoemail3@uol.com.br"));
+//}
+//catch(Exception ex)
+//{
+//    Console.WriteLine("Erro ao atualizar telefone do cliente: " + ex.Message);
+//}
+
+
+try
+{
+    clienteController.DeletarCliente("novoemail3@uol.com.br");
+    Console.WriteLine("Cliente deletado com sucesso.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine("Erro ao deletar cliente: " + ex.Message);
+}
