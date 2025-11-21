@@ -8,8 +8,9 @@ namespace Locadora.Models
 {
     public class Categoria
     {
-        public static readonly string INSERTCATEGORIA = @"INSER INTO dbo.tblCategorias (Nome, Descricao, Diaria) 
-                                                        VALUES (@Nome, @Descricao, @Diaria);";
+        public static readonly string INSERTCATEGORIA = @"INSERT INTO dbo.tblCategorias (Nome, Descricao, Diaria) 
+                                                        VALUES (@Nome, @Descricao, @Diaria)
+                                                        SELECT SCOPE_IDENTITY();";
 
         public static readonly string SELECTALLCATEGORIAS = @"SELECT CategoriaId, Nome, Diaria, Descricao FROM dbo.tblCategorias";
         
@@ -29,8 +30,8 @@ namespace Locadora.Models
         public int CategoriaId { get; private set; }
         public string Nome { get; private set; }
         public decimal Diaria { get; private set; }
-        public string Descricao { get; private set; }
-        public Categoria(string nome, decimal preco, string descricao = "")
+        public string? Descricao { get; private set; }
+        public Categoria(string nome, decimal preco, string descricao = "")                       //posso fazer um um construtor herdado herdando nome e diaria e colocar a descricao, pois ela pode ser nula
         {
             Nome = nome;
             Diaria = preco;

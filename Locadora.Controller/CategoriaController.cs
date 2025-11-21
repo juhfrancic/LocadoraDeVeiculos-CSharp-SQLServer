@@ -20,13 +20,16 @@ namespace Locadora.Controller
             {
                 try
                 {
-                    var command = connection.CreateCommand();  // representa o comando que quer executar no sql server
+                    var command = connection.CreateCommand();  
                     command.Transaction = transaction;
-                    command.CommandText = "INSERT INTO Categoria (Nome, Descricao, Diaria) OUTPUT INSERTED.CategoriaId VALUES (@Nome, @Descricao, @Diaria)";
+                    command.CommandText = @"INSERT INTO dbo.tblCategorias (Nome, Descricao, Diaria) 
+                                            VALUES (@Nome, @Descricao, @Diaria)
+                                            SELECT SCOPE_IDENTITY()";
+
                     command.Parameters.AddWithValue("@Nome", categoria.Nome);
-                    command.Parameters.AddWithValue("@Descricao", categoria.Descricao);
+                    command.Parameters.AddWithValue("@Descricao", categoria.Descricao ?? (object)DBNull.Value);
                     command.Parameters.AddWithValue("@Diaria", categoria.Diaria);
-                    int categoriaId = (int)command.ExecuteScalar();
+                    int categoriaId = Convert.ToInt32(command.ExecuteScalar());
                     categoria.setCategoriaId(categoriaId);
                     transaction.Commit();
                 }
@@ -82,6 +85,7 @@ namespace Locadora.Controller
                 connection.Open();
                 SqlCommand command = new SqlCommand("SELECT CategoriaId, Nome, Diaria, Descricao FROM dbo.tblCategorias WHERE CategoriaId = @CategoriaId;", connection);
                 command.Parameters.AddWithValue("@CategoriaId", categoriaId);
+                
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.Read())
                 {
@@ -112,6 +116,8 @@ namespace Locadora.Controller
         public void UpdateCategoria(Categoria categoria)
         {
             var connection = new SqlConnection(ConnectionDB.GetConnectionString());
+
+
             try
             {
                 connection.Open();
